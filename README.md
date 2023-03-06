@@ -1,6 +1,6 @@
 # VisionPy
 
-## How to section:
+## Useful links:
 Useful links until we fill in this README.md file
 - [OpenCV - Documentation](https://pypi.org/project/opencv-python/)
 - [Numpy - Documentation](https://numpy.org/devdocs/user/quickstart.html)
