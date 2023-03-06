@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PotteryStation", "PotteryStation.pyproj", "{95A65C8A-AB53-4ED3-9409-90505095F3EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E90DF126-9A79-43C3-B3BD-FB3D2FFB7807}"
+	ProjectSection(SolutionItems) = preProject
+		alpha blend.py = alpha blend.py
+		alpha_blend2.py = alpha_blend2.py
+		gesture.py = gesture.py
+		glasses.png = glasses.png
+		glasses2.jpg = glasses2.jpg
+		glasses3.png = glasses3.png
+		glasses4.png = glasses4.png
+		harry.jpg = harry.jpg
+		Harry3.png = Harry3.png
+		hat.jpeg = hat.jpeg
+		hat.png = hat.png
+		hat2.png = hat2.png
+		hat22.PNG = hat22.PNG
+		hat3.png = hat3.png
+		hat5.png = hat5.png
+		hathat.png = hathat.png
+		live.py = live.py
+		logo.png = logo.png
+		marioHatResized.png = marioHatResized.png
+		mariomustachet.png = mariomustachet.png
+		merge_images.py = merge_images.py
+		mustacheandnose.png = mustacheandnose.png
+		PotteryStation.py = PotteryStation.py
+		resize_image.py = resize_image.py
+		the_saturdays_right.jpg = the_saturdays_right.jpg
+		the_saturdays_wrong.jpg = the_saturdays_wrong.jpg
+		uniform.jpg = uniform.jpg
+		uniform2.png = uniform2.png
+		uniform3.png = uniform3.png
+		uniform4.png = uniform4.png
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95A65C8A-AB53-4ED3-9409-90505095F3EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95A65C8A-AB53-4ED3-9409-90505095F3EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6CF28AD8-ECD8-41E7-B846-0B5CA219FB12}
+	EndGlobalSection
+EndGlobal
