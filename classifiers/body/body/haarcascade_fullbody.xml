@@ -87,12 +87,12 @@ movie by pressing the space bar.
 
 Detections coming from the different detectors are visualized using
 different line styles: 
-upper body : dotted line
-lower body : dashed line
-full body  : solid line
+upper uniforms : dotted line
+lower uniforms : dashed line
+full uniforms  : solid line
 
 You will notice that successful detections containing the target do
-not sit tightly on the body but also include some of the background
+not sit tightly on the uniforms but also include some of the background
 left and right.  This is not a bug but accurately reflects the
 employed training data which also includes portions of the background
 to ensure proper silhouette representation. If you want to get a
@@ -128,7 +128,7 @@ KNOWN LIMITATIONS
    patterns occurring in the world (i.e. image "background"). This is not so
    for upper, lower and especially full bodies, because they have to rely
    on fragile silhouette information rather than internal (facial) features.
-   Still, we found especially the upper body detector to perform amazingly well.
+   Still, we found especially the upper uniforms detector to perform amazingly well.
    In contrast to a face detector these detectors will also work at very low
    image resolutions 
 
