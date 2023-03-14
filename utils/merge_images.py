@@ -3,6 +3,8 @@ import argparse
 
 import numpy
 
+from utils.common import display_image
+
 
 def merge_images(
     background_path: str, face_path: str, alpha: float, beta: float, gamma: float
@@ -64,12 +66,9 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    # Merge the images using the specified arguments
     merged_image = merge_images(
         args.background_path, args.face_path, args.alpha, args.beta, args.gamma
     )
 
     # Display the merged image
-    cv2.imshow("Merged", merged_image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    display_image(title="Merged Image", image=merged_image)

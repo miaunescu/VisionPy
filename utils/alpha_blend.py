@@ -1,6 +1,6 @@
-import cv2
+import argparse
 
-import numpy as np
+import cv2
 
 from utils.common import display_image
 
@@ -10,14 +10,9 @@ MAX_PIXEL_VALUE = 255.0
 def overlay_images(foreground_path: str, background_path: str, alpha_path: str):
     """
     Overlays a foreground image on a background image using an alpha mask.
-
-    Args:
-    - foreground_path (str): The path to the foreground image file.
-    - background_path (str): The path to the background image file.
-    - alpha_path (str): The path to the alpha mask image file.
-
-    Returns:
-    - None
+     :param:foreground_path (str): The path to the foreground image file.
+     :param:background_path (str): The path to the background image file.
+     :param: alpha_path (str): The path to the alpha mask image file.
     """
     # Read the images
     foreground = cv2.imread(foreground_path)
@@ -65,6 +60,27 @@ def overlay_images(foreground_path: str, background_path: str, alpha_path: str):
 
 
 if __name__ == "__main__":
-    overlay_images(
-        "../images/harry_theme/glasses/glasses.png", "harry.png", "puppets_alpha.png"
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        description="Overlay images",
     )
+    parser.add_argument(
+        "foreground_path",
+        type=str,
+        default="../images/harry_theme/glasses/glasses.png",
+        help="File path to the foreground image",
+    )
+    parser.add_argument(
+        "background_path",
+        type=str,
+        default="harry.png",
+        help="File path to the background image",
+    )
+    parser.add_argument(
+        "alpha_path",
+        type=str,
+        default="puppets_alpha.png",
+        help="File path to the alpha_path image",
+    )
+    args = parser.parse_args()
+    overlay_images(args.foreground_path, args.background_path, args.alpha_path)
