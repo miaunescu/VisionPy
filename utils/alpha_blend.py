@@ -65,19 +65,19 @@ if __name__ == "__main__":
         description="Overlay images",
     )
     parser.add_argument(
-        "foreground_path",
+        "--foreground_path",
         type=str,
         default="../images/harry_theme/glasses/glasses.png",
         help="File path to the foreground image",
     )
     parser.add_argument(
-        "background_path",
+        "--background_path",
         type=str,
         default="harry.png",
         help="File path to the background image",
     )
     parser.add_argument(
-        "alpha_path",
+        "--alpha_path",
         type=str,
         default="puppets_alpha.png",
         help="File path to the alpha_path image",

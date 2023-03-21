@@ -41,13 +41,13 @@ if __name__ == "__main__":
         description="Resize an image",
     )
     parser.add_argument(
-        "image_path",
+        "--image_path",
         default="/home/img/python.png",
         type=str,
         help="Path to the image file",
     )
     parser.add_argument(
-        "scale_percent", type=int, default=60, help="Scale percent as an integer"
+        "--scale_percent", type=int, default=60, help="Scale percent as an integer"
     )
     args = parser.parse_args()
 

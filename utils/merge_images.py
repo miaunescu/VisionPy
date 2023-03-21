@@ -1,6 +1,6 @@
-import cv2
 import argparse
 
+import cv2
 import numpy
 
 from utils.common import display_image
@@ -39,7 +39,7 @@ def merge_images(
         face = cv2.resize(face, (background.shape[1], background.shape[0]))
 
     # Merge the images with the given weighting parameters
-    return cv2.addWeighted(background, alpha, face, beta, gamma)
+    return cv2.addWeighted(face, alpha, face, beta, gamma)
 
 
 if __name__ == "__main__":
@@ -47,22 +47,38 @@ if __name__ == "__main__":
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         description="Merge two images together.",
     )
-    parser.add_argument("background_path", help="File path to the background image")
-    parser.add_argument("face_path", help="File path to the face image")
     parser.add_argument(
+        "-bg",
+        "--background_path",
+        default="images/harry_theme/uniforms/harry.jpg",
+        help="File path to the background image",
+    )
+    parser.add_argument(
+        "-fp",
+        "--face_path",
+        default="images/mario_theme/roi.png",
+        help="File path to the face image",
+    )
+    parser.add_argument(
+        "-a",
         "--alpha",
         type=float,
         default=0.4,
         help="Weight of the background image (default: 0.4)",
     )
     parser.add_argument(
+        "-b",
         "--beta",
         type=float,
         default=0.1,
         help="Weight of the face image (default: 0.1)",
     )
     parser.add_argument(
-        "--gamma", type=float, default=0, help="Brightness adjustment (default: 0)"
+        "-g",
+        "--gamma",
+        type=float,
+        default=0,
+        help="Brightness adjustment (default: 0)",
     )
     args = parser.parse_args()
 
@@ -70,5 +86,4 @@ if __name__ == "__main__":
         args.background_path, args.face_path, args.alpha, args.beta, args.gamma
     )
 
-    # Display the merged image
     display_image(title="Merged Image", image=merged_image)
