@@ -24,7 +24,9 @@ def transparent_overlay(src, overlay, pos=(0, 0), scaleX=1, scaleY=1):
             if x + i >= rows or y + j >= cols:
                 continue
             alpha = float(overlay[i][j][3] / 255.0)  # read the alpha channel
-            src[x + i][y + j] = alpha * overlay[i][j][:3] + (1 - alpha) * src[x + i][y + j]
+            src[x + i][y + j] = (
+                alpha * overlay[i][j][:3] + (1 - alpha) * src[x + i][y + j]
+            )
     return src
 
 
@@ -44,7 +46,7 @@ def calculate_hat_position(face_position, hat_size):
 
 
 def calculate_uniform_position(face_position, uniform_size):
-    # uniform should be under the face but not totally
+    # uniforms should be under the face but not totally
     pass
     (x, y, w, h) = face_position
     (uniform_w, uniform_h, uniform_o, uniform_of, uniform_y) = uniform_size
@@ -142,14 +144,22 @@ set_initial_state()
 cap = cv2.VideoCapture(3)
 
 # Create the haar cascade1
-faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
-# eyesCascade = cv2.CascadeClassifier(".\models\haarcascade_eye.xml")
-eyesCascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_eye_tree_eyeglasses.xml")
+faceCascade = cv2.CascadeClassifier(
+    cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
+)
+# eyesCascade = cv2.CascadeClassifier(".\classifiers\haarcascade_eye.xml")
+eyesCascade = cv2.CascadeClassifier(
+    cv2.data.haarcascades + "haarcascade_eye_tree_eyeglasses.xml"
+)
 
-profileCascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_profileface.xml")
-handCascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_profileface.xml")
+profileCascade = cv2.CascadeClassifier(
+    cv2.data.haarcascades + "haarcascade_profileface.xml"
+)
+handCascade = cv2.CascadeClassifier(
+    cv2.data.haarcascades + "haarcascade_profileface.xml"
+)
 noseCascade = cv2.CascadeClassifier(cv2.data.haarcascades + "nose.xml")
-# palmCascade = cv2.CascadeClassifier(r".\models\palm.xml")
+# palmCascade = cv2.CascadeClassifier(r".\classifiers\palm.xml")
 
 overlayImage = cv2.imread("glasses4.png", cv2.IMREAD_UNCHANGED)
 hatImage = cv2.imread("hat3.png", cv2.IMREAD_UNCHANGED)
@@ -212,12 +222,21 @@ while True:
 
     current_face = (0, 0, 0, 0)
     # Draw a rectangle around the faces
-    for (x, y, w, h) in faces:
+    for x, y, w, h in faces:
         # cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
         roi_area = (x, y, w, h)
         current_face = roi_area
         print("face location:" + str(x) + "," + str(y) + "," + str(w) + "," + str(h))
-        print("hat location:" + str(x + w // 2) + "," + str(y) + "," + str(h * 1.5 / 200) + "," + str(w * 1.5 / 200))
+        print(
+            "hat location:"
+            + str(x + w // 2)
+            + ","
+            + str(y)
+            + ","
+            + str(h * 1.5 / 200)
+            + ","
+            + str(w * 1.5 / 200)
+        )
 
         # add hat
         if hat_status == 1:
@@ -243,45 +262,63 @@ while True:
         if hat_status == 6:
             pos_hat, scale_x, scale_y = calculate_hat_position((x, y, w, h), size_hat6)
             frame = transparent_overlay(frame, hatImage6, pos_hat, scale_x, scale_y)
-        # add uniform
+        # add uniforms
         break
         if uniform_status == 1:
-            pos_uniform, scale_x, scale_y = calculate_uniform_position((x, y, w, h), size_uniform)
-            frame = transparentOverlay(frame, uniformImage, pos_uniform, scale_x, scale_y)
+            pos_uniform, scale_x, scale_y = calculate_uniform_position(
+                (x, y, w, h), size_uniform
+            )
+            frame = transparentOverlay(
+                frame, uniformImage, pos_uniform, scale_x, scale_y
+            )
 
         if uniform_status == 2:
-            pos_uniform, scale_x, scale_y = calculate_uniform_position((x, y, w, h), size_uniform2)
-            frame = transparentOverlay(frame, uniformImage2, pos_uniform, scale_x, scale_y)
+            pos_uniform, scale_x, scale_y = calculate_uniform_position(
+                (x, y, w, h), size_uniform2
+            )
+            frame = transparentOverlay(
+                frame, uniformImage2, pos_uniform, scale_x, scale_y
+            )
 
         if uniform_status == 3:
-            pos_uniform, scale_x, scale_y = calculate_uniform_position((x, y, w, h), size_uniform3)
-            frame = transparentOverlay(frame, uniformImage3, pos_uniform, scale_x, scale_y)
+            pos_uniform, scale_x, scale_y = calculate_uniform_position(
+                (x, y, w, h), size_uniform3
+            )
+            frame = transparentOverlay(
+                frame, uniformImage3, pos_uniform, scale_x, scale_y
+            )
 
     # Draw a rectangle around the mouth
-    for (x, y, w, h) in nose:
+    for x, y, w, h in nose:
         # cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 255), 2)
         roi_area = (x, y, w, h)
         print("nose location:" + str(x) + "," + str(y) + "," + str(w) + "," + str(h))
         if mustache_status == 1:
-            pos_mustache, scale_x, scale_y = calculate_mustache_position((x, y, w, h), size_mustache, current_face)
+            pos_mustache, scale_x, scale_y = calculate_mustache_position(
+                (x, y, w, h), size_mustache, current_face
+            )
             (pos_mustache_x, pos_mustache_y) = pos_mustache
             if not (pos_mustache_x * scale_x * scale_y == 0):
-                frame = transparent_overlay(frame, mustacheImage, pos_mustache, scale_x, scale_y)
+                frame = transparent_overlay(
+                    frame, mustacheImage, pos_mustache, scale_x, scale_y
+                )
 
     # Draw a rectangle around the profile
-    for (x, y, w, h) in profile: pass
+    for x, y, w, h in profile:
+        pass
     # cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 255), 2)
     # roi_area = (x,y,w,h)
 
     # Draw a rectangle around the palm
-    #	for (x, y, w, h) in palm:
-    #		cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 255, 0), 2)
-    #		roi_area = (x,y,w,h)
+    # 	for (x, y, w, h) in palm:
+    # 		cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 255, 0), 2)
+    # 		roi_area = (x,y,w,h)
 
     # Draw a circle around the eyes
-    for (x, y, w, h) in eyes: pass
+    for x, y, w, h in eyes:
+        pass
     # cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 255, 0), 2)
-    #	cv2.circle(frame, (int(x+w/2), int(y+h/2)), int(w/2), (0, 0, 0), 2)
+    # 	cv2.circle(frame, (int(x+w/2), int(y+h/2)), int(w/2), (0, 0, 0), 2)
     # try to add real glasses
 
     if glasses_status == 1 and len(eyes) == 2:
@@ -290,33 +327,38 @@ while True:
     # frame = transparentOverlay(frame,overlayImage,(glassesX,glassesY),scale_x, scale_y)
 
     # Display the resulting frame
-    cv2.imshow('frame', frame)
+    cv2.imshow("frame", frame)
     # if cv2.waitKey(1) & 0xFF == ord('q'):
     # 	break
     k = cv2.waitKey(1)
 
-    if k == ord('q'):
+    if k == ord("q"):
         print("quiting")
         break
-    if k == ord('p'):
+    if k == ord("p"):
         print("picture!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        roi = frame[roi_area[1]:roi_area[1] + roi_area[3], roi_area[0]:roi_area[0] + roi_area[2]]
+        roi = frame[
+            roi_area[1] : roi_area[1] + roi_area[3],
+            roi_area[0] : roi_area[0] + roi_area[2],
+        ]
         cv2.imwrite("roi.png", roi)
-    if k == ord('r'):
+    if k == ord("r"):
         print("full picture!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        name = "./images/full_picture_{0}.png".format(datetime.now().strftime("%Y%m%d_%H%M%S"))
+        name = "./images/full_picture_{0}.png".format(
+            datetime.now().strftime("%Y%m%d_%H%M%S")
+        )
         print(name)
         cv2.imwrite(name, frame)
 
-    if k == ord('u'):
+    if k == ord("u"):
         uniform_status = uniform_status + 1
         uniform_status = uniform_status % 4
 
-    if k == ord('h'):
+    if k == ord("h"):
         hat_status = hat_status + 1
         hat_status = hat_status % 5
 
-    if k == ord('g'):
+    if k == ord("g"):
         glasses_status = glasses_status + 1
         glasses_status = glasses_status % 2
 # When everything done, release the capture
